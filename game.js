@@ -13,5 +13,8 @@ function nextSequence() {
 // Adds the new randomChosenColor generated above to the end of the gamePattern
     gamePattern.push(randomChosenColor);
 
-
+// jQuery to animate the selected randomChosenColor
+    $("#" + randomChosenColor).fadeOut(100).fadeIn(100);
 }
+
+nextSequence();
