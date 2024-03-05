@@ -15,6 +15,10 @@ function nextSequence() {
 
 // jQuery to animate the selected randomChosenColor
     $("#" + randomChosenColor).fadeOut(100).fadeIn(100);
+
+// JS to play the matching sound to the chosen color
+        var audio = new Audio("sounds/" + randomChosenColor + ".mp3");
+        audio.play();
 }
 
 nextSequence();
