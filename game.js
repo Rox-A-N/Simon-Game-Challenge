@@ -2,6 +2,8 @@ var buttonColor = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
 
+var userClickedPattern = [];
+
 
 function nextSequence() {
 // randomNumber will be used to randomly select the index number of buttonColor
@@ -22,3 +24,10 @@ function nextSequence() {
 }
 
 nextSequence();
+
+$(".btn").on("click", function() {
+    var userChosenColor = $(this).attr("id");
+    userClickedPattern.push(userChosenColor);
+
+    console.log(userClickedPattern);
+})
