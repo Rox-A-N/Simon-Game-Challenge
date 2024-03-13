@@ -1,9 +1,34 @@
 var buttonColor = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
-
 var userClickedPattern = [];
 
+var started = false;    // Variable to track whether game has started
+var level = 0;
+
+
+$(document).on("keydown", function() {
+    // Check if the game has started
+    if (!started) {
+        // Update h1 Title Text
+        $("#level-title").text("Level " + level);
+
+        // If the game hasn't started yet, call nextSequence()
+        nextSequence();
+
+        // Set started to true to indicate that the game has started
+        started = true;
+
+
+    }
+})
+
+/* Listening for user's click. If clicked:
+    1. record which color was clicked
+    2. push the color to the userClickedPattern array
+    3. play sound connected to clicked color
+    4. animate the color click
+    5. check if the clicked color matches the pattern */
 $(".btn").on("click", function() {
 
     var userChosenColor = $(this).attr("id");
@@ -11,9 +36,36 @@ $(".btn").on("click", function() {
 
     playSound(userChosenColor);
     animatePress(userChosenColor);
+    checkAnswer(userClickedPattern.length - 1);
+
+    
+  
 })
 
+// Check the User's answer against the game sequences
+function checkAnswer(currentLevel) {
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+        console.log("Success");
+
+        if (userClickedPattern.length === gamePattern.length) {
+            setTimeout(function() {
+                nextSequence();
+            }, 1000);
+        }
+    }
+    else {
+        console.log("Wrong");
+    }
+}
+
+
 function nextSequence() {
+    // Update h1 title text with Level change
+    $("#level-title").text("Level " + level);
+    
+    // Increase level
+        level++;
+
 // randomNumber will be used to randomly select the index number of buttonColor
     var randomNumber = Math.floor(Math.random() * 4);
 
@@ -27,7 +79,10 @@ function nextSequence() {
     $("#" + randomChosenColor).fadeOut(100).fadeIn(100);
     
     playSound(randomChosenColor);
+    userClickedPattern = [];    // Reset the user clicked pattern for the new level
+
 }
+
 
 function playSound(name) {
 
@@ -44,3 +99,4 @@ function animatePress(currentColor) {
         $("#" + currentColor).removeClass("pressed");
     }, 100);
 }
+
