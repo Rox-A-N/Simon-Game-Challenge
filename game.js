@@ -45,6 +45,7 @@ $(".btn").on("click", function() {
 // Check the User's answer against the game sequences
 function checkAnswer(currentLevel) {
 
+// if user clicks correctly, next color in the pattern is lit
     if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
         if (userClickedPattern.length === gamePattern.length) {
             setTimeout(function() {
@@ -52,6 +53,7 @@ function checkAnswer(currentLevel) {
             }, 1000);
         }
     }
+    // when user wrongly clicks
     else {
         playSound("wrong");
         $("body").addClass("game-over");
